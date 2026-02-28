@@ -1,60 +1,63 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    
+
     // Helper: Get current user's profile
     function getUserProfile() {
       return get(/databases/$(database)/documents/profiles/$(request.auth.uid));
     }
-    
+
     function isApproved() {
-      return getUserProfile().data.approved == true;
+      return request.auth != null && getUserProfile().data.approved == true;
     }
-    
+
     function isWriter() {
       let role = getUserProfile().data.role;
-      return role in ['staff', 'researcher', 'admin'];
+      return isApproved() && role in ['staff', 'researcher', 'admin'];
     }
-    
+
     function isAdmin() {
-      return getUserProfile().data.role == 'admin';
+      return isApproved() && getUserProfile().data.role == 'admin';
     }
 
-    // profiles: owner read, admin read all
+    // profiles: owner read/update, admin read all
     match /profiles/{userId} {
-      allow read: if request.auth.uid == userId || isAdmin();
-      allow update: if request.auth.uid == userId || isAdmin();
-      allow create: if request.auth.uid == userId;  // Registration
+      allow read: if request.auth != null
+                  && (request.auth.uid == userId || isAdmin());
+      allow update: if request.auth != null
+                    && (request.auth.uid == userId || isAdmin());
+      allow create: if request.auth != null
+                    && request.auth.uid == userId;
     }
 
-    // plots: approved users read, writers write
+    // plots: public read, writers write
     match /plots/{plotId} {
-      allow read: if isApproved();
+      allow read: if true;
       allow write: if isWriter();
     }
 
-    // trees: same
+    // trees: public read, writers write
     match /trees/{treeId} {
-      allow read: if isApproved();
+      allow read: if true;
       allow write: if isWriter();
     }
 
-    // growth_logs: same
+    // growth_logs: public read, writers write
     match /growth_logs/{logId} {
-      allow read: if isApproved();
+      allow read: if true;
       allow write: if isWriter();
     }
 
-    // plot_images: same
+    // plot_images: public read, writers write/delete
     match /plot_images/{imageId} {
-      allow read: if isApproved();
+      allow read: if true;
       allow write: if isWriter();
       allow delete: if isWriter();
     }
 
-    // species: read all, admin write
+    // species: public read, admin write
     match /species/{speciesId} {
-      allow read: if isApproved();
+      allow read: if true;
       allow write: if isAdmin();
     }
   }
