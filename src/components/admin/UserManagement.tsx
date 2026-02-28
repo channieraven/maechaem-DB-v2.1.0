@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs, query, orderBy, doc, updateDoc } from 'firebase/firestore';
-import { db } from '../../lib/firebase';
+import { httpsCallable } from 'firebase/functions';
+import { db, functions } from '../../lib/firebase';
 import type { Profile, UserRole } from '../../lib/database.types';
 import { Check, X, Loader2 } from 'lucide-react';
 
@@ -46,10 +47,19 @@ const UserManagement: React.FC = () => {
 
   const updateUser = async (id: string, updates: Partial<Profile>) => {
     setSaving(id);
-    
+
     try {
       const userDoc = doc(db, 'profiles', id);
       await updateDoc(userDoc, updates);
+
+      // Sync Auth custom claims so Storage rules and RBAC stay in sync
+      try {
+        const syncClaims = httpsCallable(functions, 'syncUserClaims');
+        await syncClaims({ userId: id });
+      } catch (claimsErr) {
+        console.warn('[UserManagement] Failed to sync claims (non-critical):', claimsErr);
+      }
+
       await fetchUsers();
     } catch (err) {
       console.error('[UserManagement] Error updating user:', err);

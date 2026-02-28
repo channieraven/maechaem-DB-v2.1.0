@@ -125,58 +125,57 @@ export const createUserProfile = onCall(async (request) => {
 });
 
 /**
- * onProfileUpdate - Sync role changes to Auth custom claims
+ * syncUserClaims - Sync Firestore profile role/approval to Auth custom claims
  *
- * When admin updates user role or approval status in Firestore,
- * automatically update the user's custom claims for RBAC.
+ * Called by admin panel after updating a user's role or approval status.
+ * This replaces the commented-out onProfileUpdate trigger which had
+ * region detection issues with Firestore triggers.
  *
- * COMMENTED OUT: Firestore trigger has region detection issues.
- * Workaround: Admin can manually refresh user tokens, or use
- * createUserProfile to reset claims.
+ * Usage from client:
+ * await httpsCallable(functions, 'syncUserClaims')({ userId: '...' });
  */
-// export const onProfileUpdate = onDocumentWritten(
-//   "profiles/{userId}",
-//   async (event) => {
-//     const userId = event.params.userId;
-//     const afterData = event.data?.after.data();
-//     const beforeData = event.data?.before.data();
+export const syncUserClaims = onCall(async (request) => {
+  // Require authenticated admin
+  if (!request.auth) {
+    throw new HttpsError("unauthenticated", "User must be authenticated");
+  }
 
-//     // Skip if document was deleted
-//     if (!afterData) {
-//       logger.info(`[onProfileUpdate] Profile deleted: ${userId}`);
-//       return;
-//     }
+  const callerRole = request.auth.token?.role;
+  if (callerRole !== "admin") {
+    throw new HttpsError("permission-denied", "Only admins can sync claims");
+  }
 
-//     // Skip if role/approved unchanged
-//     if (beforeData &&
-//         afterData.role === beforeData.role &&
-//         afterData.approved === beforeData.approved) {
-//       return;
-//     }
+  const {userId} = request.data as { userId: string };
+  if (!userId) {
+    throw new HttpsError("invalid-argument", "userId is required");
+  }
 
-//     try {
-//       const role = afterData.role || "pending";
-//       const approved = afterData.approved === true;
+  const db = admin.firestore();
 
-//       logger.info(
-//         `[onProfileUpdate] Updating claims for ${userId}`,
-//         {role, approved}
-//       );
+  try {
+    const profileDoc = await db.collection("profiles").doc(userId).get();
+    if (!profileDoc.exists) {
+      throw new HttpsError("not-found", "Profile not found");
+    }
 
-//       await admin.auth().setCustomUserClaims(userId, {
-//         role,
-//         approved,
-//       });
+    const data = profileDoc.data()!;
+    const role = data.role || "pending";
+    const approved = data.approved === true;
 
-//       logger.info(`[onProfileUpdate] Claims updated for ${userId}`);
-//     } catch (error) {
-//       logger.error(
-//         `[onProfileUpdate] Error for ${userId}:`,
-//         error
-//       );
-//     }
-//   }
-// );
+    await admin.auth().setCustomUserClaims(userId, {role, approved});
+
+    logger.info(
+      `[syncUserClaims] Claims updated for ${userId}`,
+      {role, approved}
+    );
+
+    return {success: true, role, approved};
+  } catch (error) {
+    if (error instanceof HttpsError) throw error;
+    logger.error(`[syncUserClaims] Error for ${userId}:`, error);
+    throw new HttpsError("internal", "Failed to sync claims");
+  }
+});
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Data Aggregation Functions (Optional - for performance optimization)

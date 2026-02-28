@@ -1,7 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
 import { DatabaseProvider } from './contexts/DatabaseContext';
 import { OfflineProvider } from './contexts/OfflineContext';
+import AuthGuard from './components/auth/AuthGuard';
 
 // Pages
 import PlotsPage from './pages/PlotsPage';
@@ -32,11 +34,15 @@ const AppRoutes: React.FC = () => (
 
 const App: React.FC = () => (
   <BrowserRouter basename={import.meta.env.BASE_URL}>
-    <DatabaseProvider>
-      <OfflineProvider>
-        <AppRoutes />
-      </OfflineProvider>
-    </DatabaseProvider>
+    <AuthProvider>
+      <DatabaseProvider>
+        <OfflineProvider>
+          <AuthGuard>
+            <AppRoutes />
+          </AuthGuard>
+        </OfflineProvider>
+      </DatabaseProvider>
+    </AuthProvider>
   </BrowserRouter>
 );
 
