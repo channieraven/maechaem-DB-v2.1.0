@@ -27,7 +27,8 @@
     "rules": "storage.rules"
   },
   "hosting": {
-    "public": "\\dist",
+    "site": "maechaem-db-rfd-79641",
+    "public": "dist",
     "ignore": [
       "firebase.json",
       "**/.*",
