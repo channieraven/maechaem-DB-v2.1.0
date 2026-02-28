@@ -20,10 +20,10 @@ const ProfilePage: React.FC = () => {
 
   return (
     <AppShell>
-      <div className="p-4 lg:p-6 max-w-lg mx-auto">
-        <h1 className="text-xl font-bold text-gray-900 mb-5">โปรไฟล์ของฉัน</h1>
+      <div className="p-4 md:p-8 max-w-4xl mx-auto pb-20">
+        <h1 className="text-2xl font-bold text-gray-800 mb-5">โปรไฟล์ของฉัน</h1>
 
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 md:p-6">
           <form onSubmit={handleSave} className="space-y-4">
             {[
               { label: 'ชื่อ-นามสกุล', value: fullname, setter: setFullname },
@@ -36,7 +36,7 @@ const ProfilePage: React.FC = () => {
                   type="text"
                   value={value}
                   onChange={(e) => setter(e.target.value)}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="w-full bg-gray-50 border border-gray-200 rounded-md p-2.5 text-sm focus:ring-2 focus:ring-green-500/20 focus:border-green-600 outline-none"
                 />
               </div>
             ))}
@@ -44,7 +44,7 @@ const ProfilePage: React.FC = () => {
             <button
               type="submit"
               disabled={isSaving}
-              className="flex items-center gap-2 px-4 py-2 bg-[#2d5a27] text-white text-sm font-medium rounded-lg hover:bg-[#234820] transition-colors disabled:opacity-60"
+              className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700 transition-colors disabled:opacity-60"
             >
               {isSaving ? <Loader2 size={15} className="animate-spin" /> : <Save size={15} />}
               {saved ? 'บันทึกแล้ว ✓' : isSaving ? 'กำลังบันทึก...' : 'บันทึก'}

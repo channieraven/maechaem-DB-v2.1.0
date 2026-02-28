@@ -40,7 +40,7 @@ export const TreeDetailPage: React.FC = () => {
 
   return (
     <AppShell>
-      <div className="p-4 lg:p-6 max-w-2xl mx-auto">
+      <div className="p-4 md:p-8 max-w-5xl mx-auto pb-20">
         {/* Back */}
         <button
           onClick={() => navigate(-1)}
@@ -51,7 +51,7 @@ export const TreeDetailPage: React.FC = () => {
         </button>
 
         {/* Tree header */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5 mb-4">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 mb-4">
           <div className="flex items-start gap-4">
             <div
               className="w-14 h-14 rounded-xl flex items-center justify-center text-white font-bold shrink-0"
@@ -60,7 +60,7 @@ export const TreeDetailPage: React.FC = () => {
               {tree.species.species_code}
             </div>
             <div>
-              <h1 className="text-lg font-bold text-gray-900 font-mono">{tree.tree_code}</h1>
+              <h1 className="text-xl font-bold text-gray-900 font-mono">{tree.tree_code}</h1>
               <p className="text-gray-700 font-medium">{tree.species.name_th}</p>
               {tree.species.name_sci && (
                 <p className="text-gray-400 text-sm italic">{tree.species.name_sci}</p>
@@ -81,19 +81,19 @@ export const TreeDetailPage: React.FC = () => {
         )}
 
         {/* Log history table */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-          <div className="px-5 py-4 border-b border-gray-50">
-            <h3 className="font-semibold text-gray-800">ประวัติการสำรวจ</h3>
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+          <div className="px-5 py-4 border-b border-gray-100 bg-gray-50/60">
+            <h3 className="text-sm font-bold text-gray-700 uppercase tracking-widest">ประวัติการสำรวจ</h3>
           </div>
           <div className="overflow-x-auto">
             <table className="min-w-full text-sm">
-              <thead className="bg-gray-50">
+              <thead className="bg-gray-50/60 text-[10px] uppercase text-gray-400 font-bold border-b border-gray-100">
                 <tr>
                   {(showDbh
                     ? ['วันที่', 'ความสูง (ม.)', 'DBH (ซม.)', 'สถานะ', 'หมายเหตุ']
                     : ['วันที่', 'ความสูง (ม.)', 'สถานะ', 'หมายเหตุ']
                   ).map((h) => (
-                    <th key={h} className="px-4 py-2.5 text-left text-xs font-semibold text-gray-500 uppercase">
+                    <th key={h} className="px-4 py-3 text-left whitespace-nowrap">
                       {h}
                     </th>
                   ))}
@@ -164,7 +164,7 @@ export const AddGrowthLogPage: React.FC = () => {
 
   return (
     <AppShell>
-      <div className="p-4 lg:p-6">
+      <div className="p-4 md:p-8 pb-20">
         <GrowthForm tree={tree} />
       </div>
     </AppShell>

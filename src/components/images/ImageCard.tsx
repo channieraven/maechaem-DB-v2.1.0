@@ -4,6 +4,7 @@ import { ref, deleteObject } from 'firebase/storage';
 import { doc, deleteDoc } from 'firebase/firestore';
 import { storage, db } from '../../lib/firebase';
 import type { PlotImage } from '../../lib/database.types';
+import { useAuth } from '../../hooks/useAuth';
 
 interface ImageCardProps {
   image: PlotImage;
@@ -19,6 +20,8 @@ function getDisplayUrl(image: PlotImage): string {
 }
 
 const ImageCard: React.FC<ImageCardProps> = ({ image, onDeleted }) => {
+  const { profile } = useAuth();
+  const isAdmin = profile?.role === 'admin';
 
   const [isDeleting, setIsDeleting] = useState(false);
   const [lightbox, setLightbox] = useState(false);
@@ -85,7 +88,7 @@ const ImageCard: React.FC<ImageCardProps> = ({ image, onDeleted }) => {
       {/* Lightbox */}
       {lightbox && (
         <div
-          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black/90 z-[3000] flex items-center justify-center p-4"
           onClick={() => setLightbox(false)}
         >
           <img src={url} alt="" className="max-w-full max-h-full object-contain rounded-lg" />

@@ -13,12 +13,14 @@ import OfflineIndicator from '../components/layout/OfflineIndicator';
 
 export const SurveyPage: React.FC = () => (
   <AppShell>
-    <div className="p-4 lg:p-6">
-      <div className="mb-5">
-        <h1 className="text-xl font-bold text-gray-900">📋 สำรวจภาคสนาม</h1>
-        <p className="text-sm text-gray-500 mt-1">เลือกแปลงที่ต้องการสำรวจ</p>
+    <div className="p-4 md:p-8">
+      <div className="max-w-5xl mx-auto pb-20">
+        <div className="mb-6">
+          <h1 className="text-2xl font-bold text-gray-800">📋 สำรวจภาคสนาม</h1>
+          <p className="text-sm text-gray-500 mt-1">เลือกแปลงที่ต้องการสำรวจ</p>
+        </div>
+        <PlotSelector />
       </div>
-      <PlotSelector />
     </div>
   </AppShell>
 );
@@ -49,7 +51,8 @@ export const SurveyPlotPage: React.FC = () => {
 
   return (
     <AppShell>
-      <div className="p-4 lg:p-6">
+      <div className="p-4 md:p-8">
+        <div className="max-w-5xl mx-auto pb-20">
         <button
           onClick={() => navigate('/survey')}
           className="flex items-center gap-2 text-sm text-gray-500 hover:text-gray-700 mb-4"
@@ -58,14 +61,15 @@ export const SurveyPlotPage: React.FC = () => {
           <span>เลือกแปลงอื่น</span>
         </button>
 
-        <div className="mb-5">
-          <h1 className="text-xl font-bold text-gray-900">
+          <div className="mb-5">
+            <h1 className="text-2xl font-bold text-gray-800">
             แปลง {plot?.name_short ?? plotCode}
-          </h1>
-          <p className="text-sm text-gray-500">{plot?.owner_name}</p>
-        </div>
+            </h1>
+            <p className="text-sm text-gray-500">{plot?.owner_name}</p>
+          </div>
 
-        {plot && <TreeSelector plotCode={plotCode!} plotId={plot.id} />}
+          {plot && <TreeSelector plotCode={plotCode!} plotId={plot.id} />}
+        </div>
       </div>
     </AppShell>
   );

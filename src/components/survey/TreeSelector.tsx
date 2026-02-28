@@ -52,7 +52,7 @@ const TreeSelector: React.FC<TreeSelectorProps> = ({ plotCode, plotId }) => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="ค้นหาต้นไม้..."
-          className="w-full pl-8 pr-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+          className="w-full pl-8 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-md text-sm outline-none focus:ring-2 focus:ring-green-500/20 focus:border-green-600"
         />
       </div>
 
@@ -63,7 +63,7 @@ const TreeSelector: React.FC<TreeSelectorProps> = ({ plotCode, plotId }) => {
             <button
               key={tree.id}
               onClick={() => navigate(`/trees/${tree.tree_code}/add-log`)}
-              className={`w-full bg-white rounded-xl border px-4 py-4 flex items-center gap-4 text-left transition-all active:scale-95 ${
+              className={`w-full bg-white rounded-2xl border px-4 py-4 flex items-center gap-4 text-left transition-all active:scale-95 ${
                 done
                   ? 'border-green-200 bg-green-50 opacity-75'
                   : 'border-gray-100 hover:shadow-md hover:border-green-200'

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Trees, CheckCircle2, CalendarDays, BarChart3 } from 'lucide-react';
+import { Trees, CheckCircle2, BarChart3 } from 'lucide-react';
 import { usePlots } from '../../hooks/usePlots';
 import SurvivalChart from './SurvivalChart';
 
@@ -15,19 +15,19 @@ const DashboardOverview: React.FC = () => {
       label: 'ต้นไม้ทั้งหมด',
       value: totalTrees.toLocaleString(),
       icon: <Trees size={20} className="text-[#2d5a27]" />,
-      bg: 'bg-green-50',
+      className: 'bg-white border border-gray-100 shadow-sm',
     },
     {
       label: 'อัตราการรอดตาย',
       value: overallRate !== null ? `${overallRate}%` : '—',
       icon: <CheckCircle2 size={20} className="text-emerald-600" />,
-      bg: 'bg-emerald-50',
+      className: 'bg-white border border-gray-100 shadow-sm border-l-4 border-l-green-500',
     },
     {
       label: 'จำนวนแปลง',
       value: plots.length.toString(),
       icon: <BarChart3 size={20} className="text-blue-600" />,
-      bg: 'bg-blue-50',
+      className: 'bg-white border border-gray-100 shadow-sm border-l-4 border-l-blue-500',
     },
   ];
 
@@ -35,13 +35,13 @@ const DashboardOverview: React.FC = () => {
     <div className="space-y-6">
       {/* Summary cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        {stats.map(({ label, value, icon, bg }) => (
-          <div key={label} className={`rounded-xl p-4 ${bg} border border-white shadow-sm`}>
+        {stats.map(({ label, value, icon, className }) => (
+          <div key={label} className={`rounded-xl p-4 ${className}`}>
             <div className="flex items-center gap-3 mb-2">
               {icon}
-              <span className="text-sm text-gray-600">{label}</span>
+              <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">{label}</span>
             </div>
-            <p className="text-2xl font-bold text-gray-900">{isLoading ? '...' : value}</p>
+            <p className="text-3xl font-mono font-bold text-gray-900">{isLoading ? '...' : value}</p>
           </div>
         ))}
       </div>

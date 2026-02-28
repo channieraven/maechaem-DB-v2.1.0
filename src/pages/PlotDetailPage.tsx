@@ -68,7 +68,8 @@ const PlotDetailPage: React.FC = () => {
 
   return (
     <AppShell>
-      <div className="p-4 lg:p-6">
+      <div className="p-4 md:p-8">
+        <div className="max-w-7xl mx-auto pb-20">
         {/* Back + header */}
         <button
           onClick={() => navigate('/plots')}
@@ -80,10 +81,10 @@ const PlotDetailPage: React.FC = () => {
 
         <div className="mb-5">
           <div className="flex items-center gap-3 flex-wrap">
-            <span className="bg-[#2d5a27] text-white text-sm font-bold px-3 py-1 rounded">
+            <span className="bg-[#2d5a27] text-white text-sm font-bold px-3 py-1 rounded-md">
               {plot.name_short}
             </span>
-            <h1 className="text-lg font-bold text-gray-900">{plot.owner_name}</h1>
+            <h1 className="text-xl font-bold text-gray-800">{plot.owner_name}</h1>
           </div>
           <p className="text-sm text-gray-500 mt-1">
             กลุ่มที่ {plot.group_number}
@@ -93,15 +94,15 @@ const PlotDetailPage: React.FC = () => {
         </div>
 
         {/* Tab strip */}
-        <div className="flex gap-2 mb-5 border-b border-gray-200 overflow-x-auto">
+        <div className="flex border-b border-gray-200 bg-white px-2 rounded-t-xl mb-5 overflow-x-auto">
           {tabs.map(({ id, label }) => (
             <button
               key={id}
               onClick={() => setActiveTab(id)}
-              className={`shrink-0 px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
+              className={`shrink-0 px-4 py-3 text-sm font-bold border-b-2 transition-all ${
                 activeTab === id
-                  ? 'border-[#2d5a27] text-[#2d5a27]'
-                  : 'border-transparent text-gray-500 hover:text-gray-700'
+                  ? 'border-green-600 text-green-700'
+                  : 'border-transparent text-gray-500 hover:text-green-600'
               }`}
             >
               {label}
@@ -111,8 +112,8 @@ const PlotDetailPage: React.FC = () => {
 
         {/* Tab content */}
         {activeTab === 'trees' && (
-          <div>
-            <div className="flex justify-end mb-3">
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 md:p-6">
+            <div className="flex justify-end mb-4">
               <button
                 onClick={() => setShowMap((m) => !m)}
                 className="text-xs text-[#2d5a27] font-medium hover:underline"
@@ -129,12 +130,12 @@ const PlotDetailPage: React.FC = () => {
         )}
 
         {activeTab === 'growth' && (
-          <div className="overflow-x-auto rounded-xl border border-gray-100 bg-white shadow-sm">
+          <div className="overflow-x-auto rounded-2xl border border-gray-100 bg-white shadow-sm">
             <table className="min-w-full text-sm">
-              <thead className="bg-gray-50 border-b border-gray-100">
+              <thead className="bg-gray-50/60 border-b border-gray-100 text-[10px] uppercase text-gray-400 font-bold">
                 <tr>
                   {['วันที่', 'รหัสต้นไม้', 'ชนิด', 'ความสูง (ม.)', 'สถานะ', 'บันทึกโดย'].map((h) => (
-                    <th key={h} className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                    <th key={h} className="px-4 py-3 text-left whitespace-nowrap">
                       {h}
                     </th>
                   ))}
@@ -181,6 +182,7 @@ const PlotDetailPage: React.FC = () => {
         {activeTab === 'images' && plot.id && (
           <ImageGallery plotId={plot.id} />
         )}
+        </div>
       </div>
     </AppShell>
   );

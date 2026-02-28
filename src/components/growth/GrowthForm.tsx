@@ -103,9 +103,9 @@ const GrowthForm: React.FC<GrowthFormProps> = ({ tree }) => {
   };
 
   return (
-    <div className="max-w-lg mx-auto">
+    <div className="max-w-3xl mx-auto">
       {/* Header */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 mb-4">
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 mb-4">
         <button
           onClick={() => navigate(-1)}
           className="flex items-center gap-2 text-sm text-gray-500 hover:text-gray-700 mb-3"
@@ -115,13 +115,13 @@ const GrowthForm: React.FC<GrowthFormProps> = ({ tree }) => {
         </button>
         <div className="flex items-start gap-3">
           <div
-            className="w-10 h-10 rounded-lg flex items-center justify-center text-white text-sm font-bold shrink-0"
+            className="w-11 h-11 rounded-xl flex items-center justify-center text-white text-sm font-bold shrink-0"
             style={{ backgroundColor: `#${tree.species.hex_color}` }}
           >
             {tree.species.species_code}
           </div>
           <div>
-            <h2 className="font-bold text-gray-900">📝 บันทึกการเจริญเติบโต</h2>
+            <h2 className="font-bold text-gray-900 text-lg">📝 บันทึกการเจริญเติบโต</h2>
             <p className="text-sm text-gray-600">
               ต้นไม้: <span className="font-mono font-semibold">{tree.tree_code}</span>
               {' '}({tree.species.name_th})
@@ -142,7 +142,7 @@ const GrowthForm: React.FC<GrowthFormProps> = ({ tree }) => {
       {/* Result banner */}
       {result && (
         <div
-          className={`rounded-xl p-4 mb-4 flex items-start gap-3 ${
+          className={`rounded-2xl p-4 mb-4 flex items-start gap-3 ${
             result.success ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200'
           }`}
         >
@@ -160,7 +160,7 @@ const GrowthForm: React.FC<GrowthFormProps> = ({ tree }) => {
       )}
 
       {/* Form */}
-      <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
+      <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 md:p-6">
         <CommonFields
           surveyDate={form.surveyDate}
           heightM={form.heightM}
@@ -199,7 +199,7 @@ const GrowthForm: React.FC<GrowthFormProps> = ({ tree }) => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="flex-1 bg-[#2d5a27] text-white rounded-lg py-3 text-sm font-semibold hover:bg-[#234820] transition-colors disabled:opacity-60 flex items-center justify-center gap-2"
+            className="flex-1 bg-green-600 text-white rounded-lg py-3 text-sm font-semibold hover:bg-green-700 transition-colors disabled:opacity-60 flex items-center justify-center gap-2"
           >
             {isSubmitting ? <Loader2 size={16} className="animate-spin" /> : <Save size={16} />}
             {isSubmitting ? 'กำลังบันทึก...' : 'บันทึก'}

@@ -68,12 +68,12 @@ const UserManagement: React.FC = () => {
 
   return (
     <div>
-      <div className="overflow-x-auto rounded-xl border border-gray-100 bg-white shadow-sm">
+      <div className="overflow-x-auto rounded-2xl border border-gray-100 bg-white shadow-sm">
         <table className="min-w-full text-sm">
-          <thead className="bg-gray-50 border-b border-gray-100">
+          <thead className="bg-gray-50/60 text-[10px] uppercase text-gray-400 font-bold border-b border-gray-100">
             <tr>
               {['ชื่อ', 'อีเมล', 'ตำแหน่ง', 'บทบาท', 'อนุมัติ', ''].map((h) => (
-                <th key={h} className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                <th key={h} className="px-4 py-3 text-left whitespace-nowrap">
                   {h}
                 </th>
               ))}

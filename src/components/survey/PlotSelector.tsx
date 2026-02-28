@@ -29,7 +29,7 @@ const PlotSelector: React.FC = () => {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         placeholder="ค้นหาแปลง..."
-        className="w-full mb-4 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+        className="w-full mb-4 bg-gray-50 border border-gray-200 rounded-md px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-green-500/20 focus:border-green-600"
       />
 
       <div className="space-y-2">
@@ -37,7 +37,7 @@ const PlotSelector: React.FC = () => {
           <button
             key={plot.id}
             onClick={() => navigate(`/survey/${plot.plot_code}`)}
-            className="w-full bg-white rounded-xl border border-gray-100 px-4 py-4 flex items-center gap-4 hover:shadow-md hover:border-green-200 transition-all active:scale-95 text-left"
+            className="w-full bg-white rounded-2xl border border-gray-100 px-4 py-4 flex items-center gap-4 hover:shadow-md hover:border-green-200 transition-all active:scale-95 text-left"
           >
             <div className="w-12 h-12 bg-[#2d5a27]/10 rounded-xl flex items-center justify-center shrink-0">
               <Trees size={22} className="text-[#2d5a27]" />

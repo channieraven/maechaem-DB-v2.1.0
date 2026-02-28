@@ -40,14 +40,14 @@ const PlotList: React.FC = () => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="ค้นหาแปลง..."
-          className="w-full pl-9 pr-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-500 bg-white"
+          className="w-full pl-9 pr-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-green-500/20 focus:border-green-600"
         />
       </div>
 
       {filtered.length === 0 ? (
         <div className="text-center py-10 text-gray-500 text-sm">ไม่พบแปลงที่ค้นหา</div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {filtered.map((plot) => (
             <PlotCard
               key={plot.id}

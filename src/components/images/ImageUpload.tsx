@@ -79,7 +79,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
         type="button"
         onClick={() => inputRef.current?.click()}
         disabled={isUploading}
-        className="flex items-center gap-2 px-4 py-2 bg-[#2d5a27] text-white text-sm font-medium rounded-lg hover:bg-[#234820] transition-colors disabled:opacity-60"
+        className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700 transition-colors disabled:opacity-60"
       >
         {isUploading ? <Loader2 size={15} className="animate-spin" /> : <Upload size={15} />}
         {isUploading ? 'กำลังอัปโหลด...' : 'อัปโหลดรูป'}
