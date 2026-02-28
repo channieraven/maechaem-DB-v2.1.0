@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <rect width="512" height="512" rx="80" fill="#2d5a27"/>
+  <!-- Tree trunk -->
+  <rect x="236" y="340" width="40" height="100" rx="6" fill="#a0522d"/>
+  <!-- Tree crown layers -->
+  <polygon points="256,80 160,240 352,240" fill="#4ade80"/>
+  <polygon points="256,140 148,300 364,300" fill="#22c55e"/>
+  <polygon points="256,200 152,360 360,360" fill="#16a34a"/>
+  <!-- Soil line dots representing field data -->
+  <circle cx="150" cy="450" r="8" fill="#86efac" opacity="0.7"/>
+  <circle cx="180" cy="460" r="6" fill="#86efac" opacity="0.6"/>
+  <circle cx="330" cy="455" r="8" fill="#86efac" opacity="0.7"/>
+  <circle cx="362" cy="445" r="6" fill="#86efac" opacity="0.6"/>
+</svg>
