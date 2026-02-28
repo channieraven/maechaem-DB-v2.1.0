@@ -9,24 +9,11 @@ interface TreeTableProps {
   isLoading?: boolean;
 }
 
-const STATUS_LABEL: Record<string, string> = {
-  alive: 'มีชีวิต',
-  dead: 'ตาย',
-  missing: 'ไม่พบ',
-};
-
-const STATUS_COLOR: Record<string, string> = {
-  alive: 'bg-green-100 text-green-700',
-  dead: 'bg-red-100 text-red-700',
-  missing: 'bg-orange-100 text-orange-700',
-};
-
 const TreeTable: React.FC<TreeTableProps> = ({ trees, isLoading = false }) => {
   const navigate = useNavigate();
   const { canWrite } = useAuth();
   const [search, setSearch] = useState('');
   const [speciesFilter, setSpeciesFilter] = useState('');
-  const [statusFilter, setStatusFilter] = useState('');
 
   const speciesOptions = Array.from(new Set(trees.map((t) => t.species.species_code))).sort();
 
@@ -51,13 +38,13 @@ const TreeTable: React.FC<TreeTableProps> = ({ trees, isLoading = false }) => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="ค้นหาต้นไม้..."
-            className="w-full pl-8 pr-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="w-full pl-8 pr-3 py-2 bg-gray-50 border border-gray-200 rounded-md text-sm outline-none focus:ring-2 focus:ring-green-500/20 focus:border-green-600"
           />
         </div>
         <select
           value={speciesFilter}
           onChange={(e) => setSpeciesFilter(e.target.value)}
-          className="border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+          className="bg-gray-50 border border-gray-200 rounded-md px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-green-500/20 focus:border-green-600"
         >
           <option value="">ทุกชนิด</option>
           {speciesOptions.map((code) => {
@@ -72,12 +59,12 @@ const TreeTable: React.FC<TreeTableProps> = ({ trees, isLoading = false }) => {
       </div>
 
       {/* Table */}
-      <div className="overflow-x-auto rounded-xl border border-gray-100 bg-white shadow-sm">
+      <div className="overflow-x-auto rounded-2xl border border-gray-100 bg-white shadow-sm">
         <table className="min-w-full text-sm">
-          <thead className="bg-gray-50 border-b border-gray-100">
+          <thead className="bg-gray-50/60 text-[10px] uppercase text-gray-400 font-bold border-b border-gray-100">
             <tr>
               {['รหัสต้นไม้', 'ชนิดพันธุ์', 'แถว', 'สถานะ', ''].map((h) => (
-                <th key={h} className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                <th key={h} className="px-4 py-3 text-left whitespace-nowrap">
                   {h}
                 </th>
               ))}
@@ -122,7 +109,8 @@ const TreeTable: React.FC<TreeTableProps> = ({ trees, isLoading = false }) => {
                     <span className="text-gray-400 text-xs">—</span>
                   </td>
                   <td className="px-4 py-3 text-right">
-                    <button
+                    {canWrite && (
+                      <button
                         onClick={(e) => {
                           e.stopPropagation();
                           navigate(`/trees/${tree.tree_code}/add-log`);
@@ -132,6 +120,7 @@ const TreeTable: React.FC<TreeTableProps> = ({ trees, isLoading = false }) => {
                         <Plus size={12} />
                         บันทึก
                       </button>
+                    )}
                   </td>
                 </tr>
               ))

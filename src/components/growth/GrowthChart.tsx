@@ -32,14 +32,17 @@ const GrowthChart: React.FC<GrowthChartProps> = ({ logs, showDbh = false }) => {
   }
 
   return (
-    <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-4">
-      <h3 className="text-sm font-semibold text-gray-700 mb-4">กราฟการเจริญเติบโต</h3>
-      <ResponsiveContainer width="100%" height={220}>
+    <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+      <div className="flex items-center justify-between mb-6">
+        <h3 className="text-sm font-bold text-gray-700 uppercase tracking-widest">กราฟแนวโน้มการเติบโต</h3>
+      </div>
+      <ResponsiveContainer width="100%" height={300}>
         <LineChart data={data} margin={{ top: 5, right: 5, left: -20, bottom: 5 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-          <XAxis dataKey="date" tick={{ fontSize: 11 }} />
-          <YAxis tick={{ fontSize: 11 }} />
+          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0f0f0" />
+          <XAxis dataKey="date" tick={{ fontSize: 10 }} axisLine={false} tickLine={false} />
+          <YAxis tick={{ fontSize: 10 }} axisLine={false} tickLine={false} />
           <Tooltip
+            contentStyle={{ borderRadius: '8px', fontSize: '12px' }}
             formatter={(value: any, name: string) => [
               `${value} ${name === 'height' ? 'ม.' : 'ซม.'}`,
               name === 'height' ? 'ความสูง' : 'DBH',

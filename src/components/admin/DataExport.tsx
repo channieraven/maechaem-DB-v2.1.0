@@ -56,13 +56,13 @@ const DataExport: React.FC = () => {
   };
 
   return (
-    <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
-      <h3 className="font-semibold text-gray-800 mb-2">ส่งออกข้อมูล</h3>
+    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+      <h3 className="text-sm font-bold text-gray-700 uppercase tracking-widest mb-2">ส่งออกข้อมูล</h3>
       <p className="text-sm text-gray-500 mb-4">ดาวน์โหลดข้อมูลการเจริญเติบโตทั้งหมดเป็นไฟล์ CSV</p>
       <button
         onClick={handleExport}
         disabled={isExporting}
-        className="flex items-center gap-2 px-4 py-2 bg-[#2d5a27] text-white text-sm font-medium rounded-lg hover:bg-[#234820] transition-colors disabled:opacity-60"
+        className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700 transition-colors disabled:opacity-60"
       >
         {isExporting ? <Loader2 size={15} className="animate-spin" /> : <Download size={15} />}
         {isExporting ? 'กำลังส่งออก...' : 'ดาวน์โหลด CSV'}

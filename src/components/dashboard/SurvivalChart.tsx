@@ -15,13 +15,13 @@ const SurvivalChart: React.FC = () => {
   if (isLoading || data.length === 0) return null;
 
   return (
-    <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-4">
-      <h3 className="text-sm font-semibold text-gray-700 mb-4">อัตราการรอดตาย (%) รายแปลง</h3>
-      <ResponsiveContainer width="100%" height={200}>
+    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+      <h3 className="text-sm font-bold text-gray-700 uppercase tracking-widest mb-6">อัตราการรอดตาย (%) รายแปลง</h3>
+      <ResponsiveContainer width="100%" height={280}>
         <BarChart data={data} margin={{ top: 5, right: 5, left: -20, bottom: 5 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-          <XAxis dataKey="name" tick={{ fontSize: 11 }} />
-          <YAxis domain={[0, 100]} tick={{ fontSize: 11 }} unit="%" />
+          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0f0f0" />
+          <XAxis dataKey="name" tick={{ fontSize: 10 }} axisLine={false} tickLine={false} />
+          <YAxis domain={[0, 100]} tick={{ fontSize: 10 }} unit="%" axisLine={false} tickLine={false} />
           <Tooltip formatter={(v: any) => [`${v}%`, 'อัตราการรอดตาย']} />
           <Bar dataKey="rate" radius={[4, 4, 0, 0]}>
             {data.map((entry, index) => (
